@@ -1,0 +1,89 @@
+%% Full length research paper template
+%% Created by Simon Hengchen and Nilo Pedrazzini for the Journal of Open Humanities Data (https://openhumanitiesdata.metajnl.com)
+
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{johd}
+
+\title{Determining the number of roots of a given polynomial through its newton fractal and deep-learning techniques}
+
+\author{Roque Mula, Marco Nieto, Pablo Pérez \\
+        \small Physics engeneering degree, Polythecnic University of Valencia. \\
+}
+
+\date{} %leave blank
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract} 
+\noindent A short (up to 250 words) summary of the main contributions of the paper and the context of the research. Full length papers discuss and illustrate methods, challenges, and limitations in the creation, collection, management, access, processing, or analysis of data in humanities research, including standards and formats. These aspects must not necessarily be discussed with reference to a specific dataset (or collection thereof) but, if your paper focusses on particular datasets, we advise to add the dataset metadata under the section ‘Dataset description’. This template provides a general outline for full length papers and authors can adapt the headings and include subheadings as they find appropriate. Please delete or replace the blue text with your own text in black.  \end{abstract}
+
+\noindent\keywords{keyword 1; keyword 2; lower case except names, max 6 }\\
+
+\noindent\authorroles{Marco Nieto contributed to this work developing the software needed to perform the tests. Pablo Pérez and Roque Mula ..... } 
+
+\section{Context and motivation}
+
+The main motivation of this paper is the curiosity on the fractal behaviour that emerges from a extremely simple function such as a polynomial. The brand new techniques and practical uses that are being developed in deep learning and ai suits perfectly this context, as image recognizing is a well-studied topic in this field.
+
+\subsection{About the Newton's Fractal}
+\noindent A Newton fractal\footnote{Example of footnote} is a figure...
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=6cm,height=6cm]{images/newton-fractal-example-plot-npe1.jpg}
+\includegraphics[width=6cm,height=6cm]{images/newton-fractal-example-plot-npe11.jpg}
+\caption{Examples of Newton Fractals, computed from the functions $\frac{(x^2-1)(x^2+1)}{2x((x^2-1)+(x^2+1))}$} (left) and $x^3-x^2+\frac{x}{9}-\frac{1}{9}$ (right), between the limits 2,-2, $2i$, $-2i$.
+\label{exnewton}
+\end{figure}
+
+
+\section{Technical tools and resources}
+For this work, a recently created software has been fundamental in some parts. The chatbot 'ChatGPT' developed by the company OpenAI has been used to generate some parts of the code, to give a general overview of the topics that we had to deepen on and to generate some examples in order to make our contributions as similar as possible to already stablished standards in the field. More information about this tool can be found at \href{https://openai.com/blog/chatgpt/}{OpenAI's chatGPT main page}.
+
+For the data generation, the libraries NumPy and Matplotlib has been used.
+For the deep-learning and implementation of neural networks, the library PyTorch has been used.
+
+All the files containing the code needed for this paper can be found inside the \texttt{GitHub} repository \href{https://github.com/Mnietoprez/newton-fractal-deep-learning}{newton-fractal-deep-learning}, from the author Marco Nieto.
+
+\section{Dataset description}
+Here you can provide, if applicable, information about the dataset(s) whose creation, collection, management, access, processing or analysis have been discussed in this paper, following this schema:
+\paragraph{Object name} Typically the name of the file or file set in the repository.
+\paragraph{Format names and versions} E.g., ASCII, CSV, Autocad, EPS, JPEG, Excel, SQL, etc.
+\paragraph{Creation dates} The start and end dates of when the data was created (YYYY-MM-DD).
+\paragraph{Dataset creators} Please list anyone who helped to create the dataset (who may or may not be an author of the data paper), including their roles (using and affiliations).
+\paragraph{Language} Languages used in the dataset (i.e., for variable names etc.).
+\paragraph{License} The open license under which the data has been deposited (e.g., CC0). 
+\paragraph{Repository name} The name of the repository to which the data is uploaded. E.g., Figshare, Dataverse, etc. 
+\paragraph{Publication date} If already known, the date in which the dataset was published in the repository (YYYY-MM-DD).
+
+\section{Method}
+Describe the methods used in the study.
+
+\section{Results and discussion}
+Describe and discuss the results of the study.
+
+\section{Implications/Applications}
+Provide information about the implications of this research and/or how it can be applied.
+
+\section*{Acknowledgements}
+Please add any relevant acknowledgements to anyone else that assisted with the project in which the data was created but did not work directly on the data itself.
+
+\section*{Funding Statement}
+If the research resulted from funded research please list the funder and grant number here.
+
+\section*{Competing interests} 
+If any of the authors have any competing interests then these must be declared. If there are no competing interests to declare then the following statement should be present: The author(s) has/have no competing interests to declare.
+
+
+\bibliographystyle{johd}
+\bibliography{bib}
+
+\section*{Supplementary Files (optional)}
+Any supplementary/additional files that should link to the main publication must be listed, with a corresponding number, title and option description. Ideally the supplementary files are also cited in the main text.
+Note: supplementary files will not be typeset so they must be provided in their final form. They will be assigned a DOI and linked to from the publication.
+
+\end{document}
