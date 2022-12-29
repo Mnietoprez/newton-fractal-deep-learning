@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 # directorio de imágenes
-folder = 'dataset/training/color/6'
+folder = 'dataset/testing/color'
 
 # recorre todas las imágenes en el directorio
 for filename in os.listdir(folder):
