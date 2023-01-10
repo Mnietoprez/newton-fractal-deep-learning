@@ -7,11 +7,11 @@ var roots = [];
 var root_colors = [];
 var mode = PLACING;
 var tolerance = 0.1;
-var r_color;
 var color_text;
 var directions;
-var coloring = 0;
 var a = 1;
+var declarePixel = 400;
+var r_color = 'red';
 
 document.addEventListener("contextmenu", function(e) {
   e.preventDefault();
@@ -19,68 +19,27 @@ document.addEventListener("contextmenu", function(e) {
 
 
 function setup() {
-  const help_text_1 = 'INTERACTIVE NEWTON FRACTAL GENERATOR<br><br>- You need at least 3 roots to make a fractal<br><br> - Modified by Marco Nieto';
-  
-  cnv = createCanvas(500, 500);
-  cnv.position(500, 15 );
+  var pixels = declarePixel;
+  cnv = createCanvas(pixels, pixels);
+  cnv.position((window.innerWidth-pixels)/2, 175 );
   cnv.mousePressed(mousePress);
   pixelDensity(1);
 
-  r_color = createColorPicker(color('red'));
-  r_color.position(240, 132);
-
-  color_text = createP("Choose a color for each root:");
-  color_text.position(15, 120);
-
-  directions = createP(help_text_1);
-  directions.position(+15);
-
-  re_input = createInput('0', "number");
-  re_input.size(50);
-  re_input.position(20, height + 30);
-
-  plus = createP("+");
-  plus.position(97, height + 15);
-
-  im_input = createInput('0', "number");
-  im_input.size(50);
-  im_input.position(125, height + 30);
-
-  im_unit = createP('i');
-  im_unit.position(190, height + 15);
-
-  add_root_button = createButton('Add Root');
-  add_root_button.position(229, height + 30);
-  add_root_button.mouseClicked(rootButton);
-
-  remove_root_button = createButton('Remove Root');
-  remove_root_button.position(1, height + 60);
-  remove_root_button.size(144);
-  remove_root_button.mouseClicked(removeRoot);
-
-  clear_roots_button = createButton('Clear Roots');
-  clear_roots_button.position(156, height + 60);
-  clear_roots_button.size(144);
-  clear_roots_button.mouseClicked(clearRoots);
-
-  alpha_slider = createSlider(0.1, 2.2, 1, 0.1);
-  alpha_slider.position(1, height + 90);
-  alpha_slider.size(3 * width / 4);
+  grade_slider = createSlider(3, 7, 3, 1);
+  grade_slider.position(85, 280);
+  grade_slider.size(3 * width / 6);
   
-  alpha_p = createP('a = ' + a);
-  alpha_p.position(20 + 3 * width / 4, height + 75);
-
-  mode_button = createButton('Make a Fractal!');
-  mode_button.id('mode button');
-  mode_button.position(1, height + 120);
-  mode_button.size(width);
-  mode_button.mouseClicked(changeMode);
+  grade_val = createP('Grade = ' + grade_slider.value());
+  grade_val.position(293, 263);
 }
+
+
+//a = alpha_slider.value();
+
 
 function draw() {
   background(220);
-  a = alpha_slider.value();
-  alpha_p.html('a = ' + a);
+  grade_val.html('Grade = ' + grade_slider.value());
   if (mode == PLACING) {
     drawRoots();
     fill(0);
@@ -93,11 +52,7 @@ function draw() {
       text(zre + " + " + zim + "i", 0, 3);
     }
   } else if (mode == DRAWING) {
-    if (coloring == 0) {
-      createFractal(alpha_slider.value());
-    } else {
-      createFractal1(alpha_slider.value());
-    }
+    createFractal(a);
     noLoop();
     saveCanvas(canvas, 'mi-dibujo', 'png')
   }
@@ -114,6 +69,39 @@ function pixelToComplex(vec) {
   let im = map(vec.y, height, 0, center.im - radius, center.im + radius);
   return new cfloat(re, im);
 }
+
+function changeRoots() {
+  if (mode == PLACING) {
+    roots = [];
+    root_colors = [];
+  }
+  generateRoots()
+}
+
+function getRandomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function getRandomHexColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function generateRoots(){
+  if (mode == PLACING) {
+    for (let i = 1; i<= grade_slider.value(); i++){
+      var re = getRandomNumber(-1.5, 1.5);
+      var im = getRandomNumber(-1.5, 1.5);
+      append(roots, new cfloat(re, im));
+      append(root_colors, getRandomHexColor());
+    }
+  }
+}
+  
 
 function drawRoots() {
   strokeWeight(6);
@@ -230,35 +218,13 @@ function createFractal1(alfa) {
   updatePixels();
 }
 
-function rootButton() {
-  if (mode == PLACING) {
-    var re = re_input.value();
-    var im = im_input.value();
-    append(roots, new cfloat(re, im));
-    append(root_colors, r_color.color());
-  }
-}
-
-function removeRoot() {
-  if (mode == PLACING) {
-    roots.pop();
-    root_colors.pop();
-  }
-}
-
-function clearRoots() {
-  if (mode == PLACING) {
-    roots = [];
-    root_colors = [];
-  }
-}
 
 function mousePress() {
   if (mode == PLACING) {
     if (mouseButton == LEFT) {
       var r = pixelToComplex(createVector(mouseX, mouseY));
       append(roots, r);
-      append(root_colors, r_color.color());
+      append(root_colors, r_color);
     } else if (mouseButton == RIGHT) {
       roots.pop();
       root_colors.pop();
@@ -282,14 +248,11 @@ function changeMode() {
 
   if (mode == PLACING && roots.length > 2) {
     mode = DRAWING;
-    directions.html(help_text_2);
-    document.getElementById('mode button').innerHTML = "Make a New Fractal!";
   } else if (mode == DRAWING) {
     mode = PLACING;
     center = new cfloat(0, 0);
     radius = 1.5;
-    directions.html(help_text_1);
-    document.getElementById('mode button').innerHTML = "Make a Fractal!";
     loop();
+    roots = []
   }
 }

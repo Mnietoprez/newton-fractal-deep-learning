@@ -2,12 +2,32 @@
 <html lang="en">
   <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="utf-8" />
     <script src="cfloatClass.js"></script>
 
   </head>
   <body>
     <script src="sketch.js"></script>
+    <div class="maincontainer">
+        <h1>Newton fractal creator</h1>
+        <h1 style="font-size: 22px;">By Marco Nieto, Roque Mula and Pablo Pérez</h1>
+        <br><br>
+      <div class="app">
+        <div class="params">
+            <h1>Parameters</h1>
+            <br><br><br><br><br>
+            <button onClick=generateRoots() >Generate random roots</button>
+            <br><br><br>
+            <button onClick=changeRoots() >Change roots</button>
+            <br><br><br>
+            <button onClick=changeMode()>Make fractal!</button>
+            
+        </div> 
+      </div>
+    </div>
+    
+    
+    
   </body>
 </html>
