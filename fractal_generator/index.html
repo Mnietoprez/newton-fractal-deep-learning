@@ -5,8 +5,8 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <meta charset="utf-8" />
     <script src="cfloatClass.js"></script>
-
   </head>
+
   <body>
     <script src="sketch.js"></script>
     <div class="maincontainer">
@@ -19,11 +19,16 @@
             <br><br><br><br><br>
             <button onClick=generateRoots() >Generate random roots</button>
             <br><br><br>
-            <button onClick=changeRoots() >Change roots</button>
-            <br><br><br>
-            <button onClick=changeMode()>Make fractal!</button>
-            
+            <button onClick=changeMode()>Make fractal!</button> 
+          </div> 
+        <div class="vspace">
         </div> 
+        <div class="params">
+          <h1>Optional features</h1>
+          <br><br><br><br><br>
+            <button id="savebtn" onClick=changeAutosave() >Autosave: ON</button>
+          
+        </div>
       </div>
     </div>
     

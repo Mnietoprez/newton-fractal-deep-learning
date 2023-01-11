@@ -10,8 +10,9 @@ var tolerance = 0.1;
 var color_text;
 var directions;
 var a = 1;
-var declarePixel = 400;
+var declarePixel = 500;
 var r_color = 'red';
+var autosave = true;
 
 document.addEventListener("contextmenu", function(e) {
   e.preventDefault();
@@ -27,15 +28,22 @@ function setup() {
 
   grade_slider = createSlider(3, 7, 3, 1);
   grade_slider.position(85, 280);
-  grade_slider.size(3 * width / 6);
+  grade_slider.size(200);
   
   grade_val = createP('Grade = ' + grade_slider.value());
   grade_val.position(293, 263);
 }
 
 
-//a = alpha_slider.value();
-
+function changeAutosave() {
+  if (autosave){
+    document.getElementById("savebtn").textContent = "Autosave : OFF";
+    autosave = false;
+  } else {
+    document.getElementById("savebtn").textContent = "Autosave : ON";
+    autosave = true;
+  }
+}
 
 function draw() {
   background(220);
@@ -54,7 +62,9 @@ function draw() {
   } else if (mode == DRAWING) {
     createFractal(a);
     noLoop();
-    saveCanvas(canvas, 'mi-dibujo', 'png')
+    if (autosave){
+      saveCanvas(canvas, 'mi-dibujo', 'png')
+    }
   }
 }
 
@@ -68,14 +78,6 @@ function pixelToComplex(vec) {
   let re = map(vec.x, 0, width, center.re - radius, center.re + radius);
   let im = map(vec.y, height, 0, center.im - radius, center.im + radius);
   return new cfloat(re, im);
-}
-
-function changeRoots() {
-  if (mode == PLACING) {
-    roots = [];
-    root_colors = [];
-  }
-  generateRoots()
 }
 
 function getRandomNumber(min, max) {
@@ -93,6 +95,7 @@ function getRandomHexColor() {
 
 function generateRoots(){
   if (mode == PLACING) {
+    roots = []
     for (let i = 1; i<= grade_slider.value(); i++){
       var re = getRandomNumber(-1.5, 1.5);
       var im = getRandomNumber(-1.5, 1.5);
